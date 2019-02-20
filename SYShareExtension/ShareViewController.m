@@ -24,6 +24,16 @@
     // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
     
     // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
+    for (NSExtensionItem *item in self.extensionContext.inputItems) {
+        for (NSItemProvider *provider in item.attachments) {
+            if ([provider hasItemConformingToTypeIdentifier:@"public.image"]) {
+                [provider loadItemForTypeIdentifier:@"public.image" options:nil completionHandler:^(id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
+                    NSURL *url = (NSURL *)item;
+                    NSLog(@"%@", url.absoluteString);
+                }];
+            }
+        }
+    }
     [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
 }
 
