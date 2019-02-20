@@ -23,6 +23,9 @@
     [super viewDidLoad];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell1"];
+    
+    NSString *str = [[NSUserDefaults standardUserDefaults] objectForKey:@"urls"];
+    NSLog(@"urls = %@", str);
 }
 
 #pragma mark - data source
